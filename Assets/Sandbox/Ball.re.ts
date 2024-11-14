@@ -7,25 +7,11 @@ import RapierBall from '@RE/RogueEngine/rogue-rapier/Components/Colliders/Rapier
 export default class Ball extends RE.Component {
   /* Since Rapier is loaded as a WASM module, we need to do a few things to ensure
      it is loaded before the ball component is initialized. */
-  @RapierBody.require() private _rapierBody: RapierBody;
-  @RapierBall.require() private _rapierCollider: RapierBall;
+  @RapierBody.require() rapierBody: RapierBody;
+  @RapierBall.require() rapierCollider: RapierBall;
 
   // Whether the ball component has been initialized.
   initialized = false;
-
-  get rapierBody() {
-    if (!this._rapierBody) {
-      this._rapierBody = RE.getComponent(RapierBody, this.object3d) as RapierBody;
-    }
-    return this._rapierBody;
-  }
-
-  get rapierCollider() {
-    if (!this._rapierCollider) {
-      this._rapierCollider = RE.getComponent(RapierBall, this.object3d) as RapierBall;
-    }
-    return this._rapierCollider;
-  }
 
   /* Initialize the ball component.
      We use this instead of start because we need to ensure Rapier is loaded first. */

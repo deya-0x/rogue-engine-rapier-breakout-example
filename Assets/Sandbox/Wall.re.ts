@@ -7,25 +7,11 @@ import RapierCuboidCollider from '@RE/RogueEngine/rogue-rapier/Components/Collid
 export default class Wall extends RE.Component {
   /* Since Rapier is loaded as a WASM module, we need to do a few things to ensure  
      it is loaded before the wall component is initialized. */
-  @RapierBody.require() private _rapierBody: RapierBody;
-  @RapierCuboidCollider.require() private _rapierCollider: RapierCuboidCollider;
+  @RapierBody.require() rapierBody: RapierBody;
+  @RapierCuboidCollider.require() rapierCollider: RapierCuboidCollider;
 
   // Whether the wall component has been initialized.
   initialized = false;
-
-  get rapierBody() {
-    if (!this._rapierBody) {
-      this._rapierBody = RE.getComponent(RapierBody, this.object3d) as RapierBody;
-    }
-    return this._rapierBody;
-  }
-
-  get rapierCollider() {
-    if (!this._rapierCollider) {
-      this._rapierCollider = RE.getComponent(RapierCuboidCollider, this.object3d) as RapierCuboidCollider;
-    }
-    return this._rapierCollider;
-  }
 
   /* Initialize the wall component.
      We use this instead of start because we need to ensure Rapier is loaded first. */
